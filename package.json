@@ -1,0 +1,17 @@
+{
+  "name": "file-saver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dateformat": "^3.0.3",
+    "debounce": "^1.2.0",
+    "fs-extra": "^7.0.1"
+  }
+}
