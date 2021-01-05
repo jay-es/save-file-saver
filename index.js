@@ -6,7 +6,7 @@ const path = require('path')
 
 const {
   WATCH_PATH,
-  DEST_PATH,
+  DEST_DIR,
   DEBOUNCE_INTERVAL,
   MAX_DIR_COUNT
 } = require('./config')
@@ -17,7 +17,7 @@ const {
  */
 const watchCallback = (event, filename) => {
   const dateStr = dateformat(new Date(), 'yyyy-mm-dd_HH-MM-ss')
-  const newDir = path.resolve(DEST_PATH, dateStr)
+  const newDir = path.resolve(DEST_DIR, dateStr)
 
   fs.copySync(WATCH_PATH, newDir)
   console.info(dateStr)
@@ -25,11 +25,11 @@ const watchCallback = (event, filename) => {
 }
 
 const delExtraDirs = () => {
-  const files = fs.readdirSync(DEST_PATH, { withFileTypes: true })
+  const files = fs.readdirSync(DEST_DIR, { withFileTypes: true })
   const dirNames = files.filter(v => v.isDirectory()).map(v => v.name)
 
   dirNames.slice(0, -MAX_DIR_COUNT).forEach(dirName => {
-    fs.remove(path.resolve(DEST_PATH, dirName))
+    fs.remove(path.resolve(DEST_DIR, dirName))
   })
 }
 
