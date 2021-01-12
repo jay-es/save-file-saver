@@ -5,7 +5,7 @@ const fs = require('fs-extra')
 const path = require('path')
 
 const {
-  WATCH_PATH,
+  WATCH_DIR,
   DEST_DIR,
   DEBOUNCE_INTERVAL,
   MAX_DIR_COUNT
@@ -19,7 +19,7 @@ const watchCallback = (event, filename) => {
   const dateStr = dateformat(new Date(), 'yyyy-mm-dd_HH-MM-ss')
   const newDir = path.resolve(DEST_DIR, dateStr)
 
-  fs.copySync(WATCH_PATH, newDir)
+  fs.copySync(WATCH_DIR, newDir)
   console.info(dateStr)
   delExtraDirs()
 }
@@ -33,4 +33,4 @@ const delExtraDirs = () => {
   })
 }
 
-fs.watch(WATCH_PATH, debounce(watchCallback, DEBOUNCE_INTERVAL))
+fs.watch(WATCH_DIR, debounce(watchCallback, DEBOUNCE_INTERVAL))
