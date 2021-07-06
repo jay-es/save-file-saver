@@ -16,7 +16,7 @@ const {
  * @param {string} filename
  */
 const watchCallback = (event, filename) => {
-  const dateStr = dateformat(new Date(), 'yyyy-mm-dd_HH-MM-ss')
+  const dateStr = dateformat(new Date(), 'yyyy年mm月dd日HH時MM分ss秒')
   const newDir = path.resolve(DEST_DIR, dateStr)
 
   fs.copySync(WATCH_DIR, newDir)
