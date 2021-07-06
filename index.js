@@ -1,6 +1,7 @@
 // @ts-check
 const dateformat = require('dateformat')
 const debounce = require('debounce')
+const { exec } = require('child_process')
 const fs = require('fs-extra')
 const path = require('path')
 
@@ -33,4 +34,12 @@ const delExtraDirs = () => {
   })
 }
 
+console.log('start')
 fs.watch(WATCH_DIR, debounce(watchCallback, DEBOUNCE_INTERVAL))
+
+// ディレクトリがなければ作成
+fs.mkdirpSync(DEST_DIR)
+
+// エクスプローラー起動
+exec(`start "" "${WATCH_DIR}"`)
+exec(`start "" "${DEST_DIR}"`)
