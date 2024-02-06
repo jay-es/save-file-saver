@@ -12,11 +12,7 @@ const {
   MAX_DIR_COUNT
 } = require('./config')
 
-/**
- * @param {string} event
- * @param {string} filename
- */
-const watchCallback = (event, filename) => {
+const watchCallback = () => {
   const dateStr = dateformat(new Date(), 'yyyy年mm月dd日HH時MM分ss秒')
   const newDir = path.resolve(DEST_DIR, dateStr)
 
@@ -43,3 +39,14 @@ fs.mkdirpSync(DEST_DIR)
 // エクスプローラー起動
 exec(`start "" "${WATCH_DIR}"`)
 exec(`start "" "${DEST_DIR}"`)
+
+// enter で手動実行
+process.stdin.setEncoding('utf8')
+process.stdin.setRawMode(true)
+process.stdin.resume()
+
+process.stdin.on('data', key => {
+  const CTRL_C = '\u0003'
+  if (key === CTRL_C) process.exit()
+  watchCallback()
+})
